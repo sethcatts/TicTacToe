@@ -1,7 +1,5 @@
 # Tic Tac Toe
 This project is not finished. This project code has not been refactored, improvements to algorithms/structure will be made once the game is fully functional. 
-
-Test Change
 ##### The game of tic tac toe
 Made using HTML, CSS, and vanilla Javascript.
 ## Features
@@ -31,5 +29,3 @@ Magic
 <img src="/images/theme_yellow-purple/o_1.png" width="5%"><img src="/images/theme_yellow-purple/x_1.png" width="5%">
 ### AI apponent  
 The AI apponent calculates the best move using the minimax algorithm. 
-n
-
