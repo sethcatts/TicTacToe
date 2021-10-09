@@ -42,11 +42,11 @@ function selectCell(i) {
 function checkGameStatus() {
     var status = false;
     if(game_instance.checkForWin()) {
-        alert("Game Over! \n" + game_instance.currentPlayer.getName() + " Wins!");
+        //alert("Game Over! \n" + game_instance.currentPlayer.getName() + " Wins!");
         status = true;
     }
     if(game_instance.checkForTie()) {
-        alert("Game Over! \n" + "The result is a tie!");
+        //alert("Game Over! \n" + "The result is a tie!");
         status = true;
     }
     return status;

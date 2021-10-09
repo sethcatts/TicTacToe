@@ -19,7 +19,7 @@ class Player {
         }
         this.name           = name;
         this.piece          = piece;
-        this.set            = this.themes.dark;
+        this.set            = this.themes.light;
 
         //Need this in order to maintain theme between games.                                                  
         //Sloppy, fix if something better comes up
