@@ -1,0 +1,137 @@
+<html>
+<main>
+  <header>
+    <title>TIC TAC TOE</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="game.js"></script>
+    <script src="player.js"></script>
+    <script src="ai_player.js"></script>
+    <script src="instance.js"></script>
+
+    <!-- TESTING FILE, REMOVE -->
+    <!--script src="ai_test.js"></script-->
+
+
+  </header>
+  <body>
+    <h1 id='head_title'>TIC TAC TOE</h1>
+    <div id="menu_buttons">
+      <button class="menu_button" onclick="newGame()">NEW GAME</button>
+      <button class="menu_button" onclick="toggleMenu()">SETTINGS</button>
+      <button class="menu_button" onclick="gameOver()">TEST</button>
+    </div>
+    <div id='game'>
+      <div class="game_board">
+        <div class="cell" onclick="selectCell([0,0])" id='00' onmouseover="drawPieceShadow([0,0])"
+          onmouseout="erasePieceShadow([0,0])"></div>
+        <div class="cell" onclick="selectCell([0,1])" id='01' onmouseover="drawPieceShadow([0,1])"
+          onmouseout="erasePieceShadow([0,1])"></div>
+        <div class="cell" onclick="selectCell([0,2])" id='02' onmouseover="drawPieceShadow([0,2])"
+          onmouseout="erasePieceShadow([0,2])"></div>
+      </div>
+
+      <div class="game_board">
+        <div class="cell" onclick="selectCell([1,0])" id='10' onmouseover="drawPieceShadow([1,0])"
+          onmouseout="erasePieceShadow([1,0])"></div>
+        <div class="cell" onclick="selectCell([1,1])" id='11' onmouseover="drawPieceShadow([1,1])"
+          onmouseout="erasePieceShadow([1,1])"></div>
+        <div class="cell" onclick="selectCell([1,2])" id='12' onmouseover="drawPieceShadow([1,2])"
+          onmouseout="erasePieceShadow([1,2])"></div>
+      </div>
+
+      <div class="game_board">
+        <div class="cell" onclick="selectCell([2,0])" id='20' onmouseover="drawPieceShadow([2,0])"
+          onmouseout="erasePieceShadow([2,0])"></div>
+        <div class="cell" onclick="selectCell([2,1])" id='21' onmouseover="drawPieceShadow([2,1])"
+          onmouseout="erasePieceShadow([2,1])"></div>
+        <div class="cell" onclick="selectCell([2,2])" id='22' onmouseover="drawPieceShadow([2,2])"
+          onmouseout="erasePieceShadow([2,2])"></div>
+      </div>
+    </div>
+    <div id="popup_bg">
+      <div id="popup_menu">
+        <div id="close_popup_div" title="Close Menu" onclick="toggleMenu()">
+          <p>X</p>
+        </div>
+        <div id="save-button-div" title="Save and Close" onclick="saveSettings()">
+          <p>Apply Settings</p>
+        </div>
+        <div id="popup-settings-area">
+          <h1 class="settings-header">THEME</h1>
+          <label for="diffculty-list">Select Theme </label>
+          <select name="themes-list" id="themes-dropdown">
+            <option value="dark">Dark</option>
+            <option value="light">Light</option>
+            <option value="blue_red">Blue & Red</option>
+            <option value="green_orange">Green & Orange</option>
+            <option value="yellow_purple">Yellow & Purple</option>
+          </select>
+          <br>
+          <h1 class="settings-header">A.I.</h1>
+          <input type="radio" id="ai_radio" name="ai-option" value="disabled" checked>
+          <label for="disabled">Disabled</label>
+          <input type="radio" id="ai_radio" name="ai-option" value="enabled">
+          <label for="enabled">Enabled</label>
+          <br>
+          <label for="difficulty-list">Select Difficulty </label>
+          <select name="difficulty-list" id="difficulty-dropdown">
+            <option value="ai-easy">Easy</option>
+            <option value="ai-medium">Medium</option>
+            <option value="ai-hard">Hard</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div id="popup_gameoverbg">
+      <div id="popup_gameover">
+        <h1>Gameover!</h1>
+        <h2>Player Wins!</h2>
+      </div>
+    </div>
+    <script type="text/javascript">
+      var popup_menu = document.getElementById("popup_bg");
+      var popup_gameover = document.getElementById("popup_gameoverbg");
+
+      //Repeated function, replace with single arg functions
+      function toggleMenu() {
+        if (popup_menu.style.display != "block") {
+          popup_menu.style.display = "block";
+        } else {
+          popup_menu.style.display = "none";
+        }
+      }
+
+      function gameOver() {
+        if (popup_gameover.style.display != "block") {
+          popup_gameover.style.display = "block";
+        } else {
+          popup_gameover.style.display = "none";
+        }
+      }
+
+      function drawPieceShadow(idn) {
+        var image = game_instance.currentPlayer.getPieceImage();
+        var cell = document.getElementById(idn[0] + "" + idn[1]);
+        if (game_instance.emptyCell(idn[0], idn[1]) && !game_instance.gameOver) {
+          cell.style.backgroundImage = "url('./" + image + "')";
+        }
+      }
+
+      function erasePieceShadow(idn) {
+        var cell = document.getElementById(idn[0] + "" + idn[1]);
+        cell.style.backgroundImage = "None";
+      }
+
+      function saveSettings() {
+        var theme = document.getElementById("themes-dropdown").value;
+        var difficulty = document.getElementById("difficulty-dropdown").value;
+        var ai_enable = document.getElementById("ai_radio").value;
+        changeTheme(theme);
+        newGame();
+        toggleMenu();
+      }
+    </script>
+  </body>
+</main>
+
+</html>
