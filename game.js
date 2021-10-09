@@ -77,7 +77,6 @@ class Game {
       }
       return true;
     } else {
-      console.error("GAME CLASS ERROR: Attempted illegal move");
       return false;
     }
   }
@@ -152,7 +151,7 @@ class Game {
    */
   legalMove(x, y) {
     if(x <= this.board.length && y <= this.board[0].length) {
-	    return this.board[x][y] === this.blank;
+	    return this.emptyCell(x, y);
     } else {
 	    return false;
     }
