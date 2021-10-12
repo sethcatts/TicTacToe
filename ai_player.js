@@ -14,6 +14,7 @@ class AI_Player extends Player {
         this.blank = blank;
         this.enemyPiece = "o";
         this.difficulty = difficulty;
+        this.moveCounter = 0;
     }
 
     /**
@@ -62,6 +63,9 @@ class AI_Player extends Player {
         if (preventable.boolean) {
             bestMove = preventable.move;
             bestVal = 1000;
+        } else if(this.moveCounter == 0 && board[1][1] == this.blank) {
+            bestMove = [1,1];
+            bestVal = 10000;
         }
 
         if (!preventable.boolean) {
@@ -79,6 +83,7 @@ class AI_Player extends Player {
                 }
             }
         }
+        this.moveCounter++;
         return bestMove;
     }
 
@@ -132,24 +137,32 @@ class AI_Player extends Player {
     }
 
     /**
-     * @desc Get best move from board
+     * @desc Return a score based on a provided board. (Evaluate the last move made)
      * @param {array} board 
      * @param {int} depth 
      * @param {int} max 
+     * @returns {int} Score of the provided board
      */
     minimax(board, depth, max) {
+        //Current state of the board
         var score = this.evaluate(board);
 
+        //If the game state is a win for the AI...
+        // -> return the value of that move with depth (TT win state) taken into account
         if (score == 10) {
             return score - depth;
+        //If the game state is a loss for the AI...
+        // -> return the value of that move with depth (TT loss state) taken into account    
         } else if (score == -10) {
             return score + depth;
         }
 
+        //If the board is full -> exit 
         if (!this.isMovesLeft(board)) {
             return 0;
         }
 
+        //Pick the best moves
         if (max) {
             var best = -1000;
             for (var i = 0; i < 3; i++) {
@@ -162,6 +175,7 @@ class AI_Player extends Player {
                 }
             }
             return best;
+        //Pick the worst moves
         } else {
             var best = 1000;
             for (var i = 0; i < 3; i++) {
@@ -180,6 +194,7 @@ class AI_Player extends Player {
     /**
      * @desc Check for empty squares on the board
      * @param {array} board 
+     * @returns {boolean} Empty cell exists
      */
     isMovesLeft(board) {
         for (let i = 0; i < 3; i++) {
