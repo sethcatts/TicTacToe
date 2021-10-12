@@ -23,7 +23,7 @@ class Player {
 
         //Need this in order to maintain theme between games.                                                  
         //Sloppy, fix if something better comes up
-        this.themeKey       = "dark";               
+        this.themeKey       = "light";               
     }
 
     /**

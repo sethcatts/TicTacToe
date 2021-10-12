@@ -2,7 +2,7 @@
 var game_instance = new Game();
 
 //Create and add ai to game object
-var ai = new AI_Player("AI", "x", "black", 3, "-");
+var ai = new AI_Player("AI", "x", "light", 3, "-");
 game_instance.setPlayer(ai, 0);
 
 /**
@@ -60,6 +60,7 @@ function newGame() {
     game_instance = new Game();
     game_instance.setPlayersPieceTheme(currentTheme);
     clearBoard();
+    ai = new AI_Player("AI", "x", "light", 3, "-");
     console.log("Starting player: " + game_instance.currentPlayer.piece);
 }
 
