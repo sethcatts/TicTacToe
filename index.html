@@ -7,11 +7,6 @@
     <script src="player.js"></script>
     <script src="ai_player.js"></script>
     <script src="instance.js"></script>
-
-    <!-- TESTING FILE, REMOVE -->
-    <script src="ai_test.js"></script>
-
-
   </header>
   <body>
     <h1 id='head_title'>TIC TAC TOE</h1>
@@ -54,7 +49,7 @@
           <p>X</p>
         </div>
         <div id="save-button-div" title="Save and Close" onclick="saveSettings()">
-          <p>Apply Settings</p>
+          <p>Accept</p>
         </div>
         <div id="popup-settings-area">
           <h1 class="settings-header">THEME</h1>
@@ -127,7 +122,6 @@
         var difficulty = document.getElementById("difficulty-dropdown").value;
         var ai_enable = document.getElementById("ai_radio").value;
         changeTheme(theme);
-        newGame();
         toggleMenu();
       }
     </script>

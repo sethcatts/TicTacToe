@@ -188,6 +188,7 @@ class Game {
   checkForTie() {
 	  if(this.boardFull() && !this.gameOver) {
       this.tie = true;
+      this.gameOver = true;
 		  return true;
 	  } else {
 		  return false;
@@ -229,6 +230,9 @@ class Game {
       state = true
     }
     this.gameOver = state;
+    if(state) {
+      console.log("A win state has been created");
+    }
     return state;
   }
 }
