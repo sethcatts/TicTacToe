@@ -1,3 +1,5 @@
+const Player = require("./player.js");
+
 /**
  * @class Game
  */
@@ -19,6 +21,14 @@ class Game {
   }
 
   /**
+   * @desc Get all the game data in one object
+   * @returns {object} Object with game state
+   */
+  getFrame() {
+    return {board: this.board, gameOver: this.gameOver, tie: this.tie, lastMover: this.waitingPlayer};
+  }
+
+  /**
    * @desc Create the game board using the specified blank tile
    * @returns {array} Array representing the current game board
    */
@@ -33,22 +43,6 @@ class Game {
       tempArray = [];
     }
     return board;
-  }
-
-  /**
-   * @desc Get the current board array
-   * @returns {array} Board array
-   */
-  getBoard() {
-    return this.board;
-  }
-
-  /**
-   * @desc Set game board array
-   * @param {array} boardArray - The desired board
-   */
-  setBoard(boardArray) {
-    this.board = boardArray;
   }
 
   /**
@@ -111,15 +105,6 @@ class Game {
   }
 
   /**
-   * @desc Switch the theme for both player objects 
-   * @param {string} theme - New theme
-   */
-  setPlayersPieceTheme(theme) {
-    this.player_1.setSet(theme);
-    this.player_2.setSet(theme);
-  }
-
-  /**
    * @desc Set the name of one of the players
    * @param {int} player - 1 or 2 
    * @param {string} name - Selected player's new name
@@ -132,15 +117,6 @@ class Game {
     } else {
       console.log("Invalid player selected for name change");
     }
-  }
-
-
-  /**
-   * @desc Get the current theme
-   * @returns {string} theme
-   */
-  getCurrentTheme() {
-    return this.currentPlayer.getSet();
   }
 
   /**
@@ -169,16 +145,6 @@ class Game {
       }
     }
     return boardFull;
-  }
-
-  /**
-   * @desc Check if the specified cell on the game board is empty
-   * @param {int} x - Board x pos
-   * @param {int} y - Board y pos   
-   * @returns {boolean} 
-   */
-  emptyCell(x, y) {
-    return this.board[x][y] == this.blank;
   }
 
 	/**
@@ -236,3 +202,5 @@ class Game {
     return state;
   }
 }
+
+module.exports = Game;

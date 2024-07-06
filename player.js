@@ -75,3 +75,5 @@ class Player {
         this.themeKey = theme;
     }
 }
+
+module.exports = Player;
