@@ -1,4 +1,4 @@
-const Player = require("./player.js");
+//const Player = require("./player.js");
 
 /**
  * @class Game
@@ -22,10 +22,10 @@ class Game {
 
   /**
    * @desc Get all the game data in one object
-   * @returns {object} Object with game state
+   * @returns {object} Object with game state needed to update gui
    */
   getFrame() {
-    return {board: this.board, gameOver: this.gameOver, tie: this.tie, lastMover: this.waitingPlayer};
+    return {board: this.board, gameOver: this.gameOver, tie: this.tie, lastMover: this.currentPlayer};
   }
 
   /**
@@ -71,6 +71,7 @@ class Game {
       }
       return true;
     } else {
+      console.log("Attempted to place a piece after game over state reached")
       return false;
     }
   }
@@ -127,7 +128,7 @@ class Game {
    */
   legalMove(x, y) {
     if(x <= this.board.length && y <= this.board[0].length) {
-	    return this.emptyCell(x, y);
+	    return this.board[x][y] == this.blank;
     } else {
 	    return false;
     }
@@ -203,4 +204,4 @@ class Game {
   }
 }
 
-module.exports = Game;
+//module.exports = Game;

@@ -103,20 +103,23 @@ img {
   width: 100%;
   height: 100%;
   display: none;
+  text-align: center;
 }
 
 #popup_menu, #popup_gameover {
   position: fixed;
   width: 800px;
   height: 500px;
-  border: 5px solid black;
-  background-color: white;
+  /* border: 5px solid black; */
+  background-color: rgba(0, 0, 0, 0.5);
   left: 50%;
   margin-left: -400px;
   top: 50%;
   margin-top: -250px;
   /*This will need to match styles?*/
-  color: black;
+  color: rgb(255, 255, 255);
+  font-size: 2em;
+  font-family: 'Courier New', Courier, monospace;
 }
 
 #close_popup_div {
@@ -174,3 +177,4 @@ img {
 .settings-header {
   margin-bottom: 0px;
 }
+
