@@ -57,5 +57,5 @@ function playAgain() {
     drawFrame();
 }
 
-function drawPieceShadow() {}
-function erasePieceShadow() {}
+function drawPieceShadow(coordinates) {}
+function erasePieceShadow(coordinates) {}
