@@ -104,6 +104,7 @@ img {
   height: 100%;
   display: none;
   text-align: center;
+  display: none;
 }
 
 #popup_menu, #popup_gameover {
@@ -169,7 +170,6 @@ img {
 
 #popup-settings-area {
   font-family: var(--font-family);
-  color: black;
   padding-left: 30px;
   font-size: 1.1em;
 }

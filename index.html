@@ -3,6 +3,7 @@
   <head>
     <title>TIC TAC TOE</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
     <script src="game.js"></script>
     <script src="player.js"></script>
     <script src="ai_player.js"></script>
@@ -12,7 +13,7 @@
     <h1 id='head_title'>TIC TAC TOE</h1>
     <div id="menu_buttons">
       <button class="menu_button" onclick="playAgain()">NEW GAME</button>
-      <button class="menu_button" onclick="toggleMenu()">SETTINGS</button>
+      <button class="menu_button" onclick="toggleSettings()">SETTINGS</button>
     </div>
     <div id='game'>
       <div class="game_board">
@@ -44,7 +45,7 @@
     </div>
     <div id="popup_bg">
       <div id="popup_menu">
-        <div id="close_popup_div" title="Close Menu" onclick="toggleMenu()">
+        <div id="close_popup_div" title="Close Menu" onclick="toggleSettings()">
           <p>X</p>
         </div>
         <div id="save-button-div" title="Save and Close" onclick="saveSettings()">
@@ -52,7 +53,7 @@
         </div>
         <div id="popup-settings-area">
           <h1 class="settings-header">THEME</h1>
-          <label for="diffculty-list">Select Theme </label>
+          <label for="diffculty-list">Select Theme</label>
           <select name="themes-list" id="themes-dropdown">
             <option value="dark">Dark</option>
             <option value="light">Light</option>
@@ -79,7 +80,7 @@
     <div id="popup_gameoverbg">
       <div id="popup_gameover">
         <div id="save-button-div" title="Save and Close" onclick="playAgain()">
-          <p>Play again</p>
+          <p>New Game</p>
         </div>
         <h1 id="gameover">Game Over!</h1>
         <h2 id="gameoverstate"></h2>

@@ -71,7 +71,7 @@ class Game {
       }
       return true;
     } else {
-      console.log("Attempted to place a piece after game over state reached")
+      console.log("Attempted an illegal move (illegal space/game is over)")
       return false;
     }
   }
