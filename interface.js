@@ -41,18 +41,23 @@ function drawFrame() {
     let frame = game.getFrame();
     for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 3; j++) {
-            if (frame.board[i][j] == "x") {
-                let elem = document.createElement('img');
-                elem.className = "selectedCell";
-                elem.src = theme.x;
-                document.getElementById(i + "" + j).appendChild(elem);
-            } else if (frame.board[i][j] == "o") {
-                let elem = document.createElement('img');
-                elem.className = "selectedCell";
-                elem.src = theme.o;
-                document.getElementById(i + "" + j).appendChild(elem);
-            } else {
-                document.getElementById(i + "" + j).innerHTML = "";
+            console.log(document.getElementById(i + "" + j).classList.contains("SelectedCell"));
+            console.log(document.getElementById(i + "" + j).classList);
+            if(!document.getElementById(i + "" + j).classList.contains("SelectedCell")) {
+                console.log("redrew piece");
+                if (frame.board[i][j] == "x") {
+                    let elem = document.createElement('img');
+                    elem.src = theme.x;
+                    document.getElementById(i + "" + j).appendChild(elem);
+                    document.getElementById(i + "" + j).classList.add("selectedCell");
+                } else if (frame.board[i][j] == "o") {
+                    let elem = document.createElement('img');
+                    elem.src = theme.o;
+                    document.getElementById(i + "" + j).appendChild(elem);
+                    document.getElementById(i + "" + j).classList.add("selectedCell");
+                } else {
+                    document.getElementById(i + "" + j).innerHTML = "";
+                }
             }
         }
     }
@@ -83,5 +88,13 @@ function saveSettings() {
     drawFrame();
 }
 
-function drawPieceShadow(coordinates) { }
-function erasePieceShadow(coordinates) { }
+function drawPieceShadow(coordinates) {
+    if(game.legalMove(coordinates[0],coordinates[1])) {
+        let cell = document.getElementById(coordinates[0] + "" + coordinates[1]);
+        cell.style.backgroundImage = "url(" + theme[game.currentPlayer.piece] + ")";
+    }
+}
+function erasePieceShadow(coordinates) {
+    let cell = document.getElementById(coordinates[0] + "" + coordinates[1]);
+    cell.style.backgroundImage = "None";
+ }
