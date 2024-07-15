@@ -1,5 +1,4 @@
 let game = new Game();
-let theme = { x: "./images/theme-dark/x_1.png", o: "./images/theme-dark/o_1.png" }
 let themes = {
     dark: { x: "./images/theme-dark/x_1.png", o: "./images/theme-dark/o_1.png" },
     light: { x: "/images/theme-light/x_1.png", o: "/images/theme-light/o_1.png" },
@@ -7,6 +6,7 @@ let themes = {
     green_orange: { x: "images/theme_green-orange/x_1.png", o: "images/theme_green-orange/o_1.png" },
     yellow_purple: { x: "images/theme_yellow-purple/x_1.png", o: "images/theme_yellow-purple/o_1.png" }
 }
+let theme = themes.light;
 
 function placePiece(coordinates) {
     //Update game state
@@ -37,64 +37,86 @@ function placePiece(coordinates) {
     }
 }
 
+
+/**
+ * Redraws the board based on the board supplied by the instance of Game
+ * Note: Creates and destroys sub elements of cells
+ */
 function drawFrame() {
     let frame = game.getFrame();
     for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 3; j++) {
-            console.log(document.getElementById(i + "" + j).classList.contains("SelectedCell"));
-            console.log(document.getElementById(i + "" + j).classList);
-            if(!document.getElementById(i + "" + j).classList.contains("SelectedCell")) {
-                console.log("redrew piece");
-                if (frame.board[i][j] == "x") {
-                    let elem = document.createElement('img');
-                    elem.src = theme.x;
-                    document.getElementById(i + "" + j).appendChild(elem);
-                    document.getElementById(i + "" + j).classList.add("selectedCell");
-                } else if (frame.board[i][j] == "o") {
-                    let elem = document.createElement('img');
-                    elem.src = theme.o;
-                    document.getElementById(i + "" + j).appendChild(elem);
-                    document.getElementById(i + "" + j).classList.add("selectedCell");
-                } else {
-                    document.getElementById(i + "" + j).innerHTML = "";
-                }
+            if (frame.board[i][j] == "x") {
+                document.getElementById(i + "" + j).innerHTML = "";
+                let elem = document.createElement('img');
+                elem.classList.add("placedPiece");
+                elem.src = theme.x;
+                document.getElementById(i + "" + j).appendChild(elem);
+            } else if (frame.board[i][j] == "o") {
+                document.getElementById(i + "" + j).innerHTML = "";
+                let elem = document.createElement('img');
+                elem.classList.add("placedPiece");
+                elem.src = theme.o;
+                document.getElementById(i + "" + j).appendChild(elem);
+            } else {
+                document.getElementById(i + "" + j).innerHTML = "";
             }
         }
     }
 }
 
+/**
+ * Create a new game instance, clear/draw the new board
+ */
 function playAgain() {
     document.getElementById("popup_gameoverbg").style.display = "none";
     game = new Game();
+    clearBoard();
     drawFrame();
 }
 
-function toggleSettings() {
-    let visiblity = document.getElementById("popup_bg").style.display;
-    console.log(visiblity);
-    let set = visiblity == "none" ? "block" : "none";
-    document.getElementById("popup_bg").style.display = set;
-}
-
-function saveSettings() {
-    document.getElementById("popup_bg").style.display = "none";
-    let selectedTheme = document.getElementById("themes-dropdown").value;
-    theme = themes[selectedTheme];
+/**
+ * Remove all sub elements from board cells
+ */
+function clearBoard() {
     for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 3; j++) {
-            document.getElementById(i + "" + j).innerHTML = "";
+            let cell = document.getElementById(i + "" + j);
+            cell.classList.remove("selectedCell");
+            cell.innerHTML = "";
         }
     }
+}
+
+/**
+ * -
+ */
+function toggleSettings() {
+    let visibility = document.getElementById("popup_bg").style.display == "none" ? "block" : "none";
+    document.getElementById("popup_bg").style.display = visibility;
+}
+
+/**
+ * Apply theme to board
+ */
+function saveSettings() {
+    document.getElementById("popup_bg").style.display = "none";
+    theme = themes[document.getElementById("themes-dropdown").value];
+    clearBoard();
     drawFrame();
 }
 
 function drawPieceShadow(coordinates) {
-    if(game.legalMove(coordinates[0],coordinates[1])) {
-        let cell = document.getElementById(coordinates[0] + "" + coordinates[1]);
-        cell.style.backgroundImage = "url(" + theme[game.currentPlayer.piece] + ")";
+    if(game.legalMove(coordinates[0], coordinates[1])){ 
+        let elem = document.createElement('img');
+        elem.src = theme[game.currentPlayer.piece];
+        elem.classList.add("pieceHover");
+        document.getElementById(coordinates[0] + "" + coordinates[1]).appendChild(elem);
     }
 }
+
 function erasePieceShadow(coordinates) {
-    let cell = document.getElementById(coordinates[0] + "" + coordinates[1]);
-    cell.style.backgroundImage = "None";
- }
+    if(game.legalMove(coordinates[0], coordinates[1])) {
+        document.getElementById(coordinates[0] + "" + coordinates[1]).innerHTML = "";
+    }
+}

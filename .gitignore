@@ -2,3 +2,5 @@ node_modules
 .vscode/settings.json
 /out
 dependancy chart.class.violet.html
+init.vim
+nvim.js

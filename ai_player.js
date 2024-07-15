@@ -1,3 +1,6 @@
+const Player = require('./player');
+
+
 /**
  * @class AI Player
  */
@@ -19,36 +22,20 @@ class AI_Player extends Player {
 
     /**
      * @description Return on object specifying the preventable loss state of the board
+     * @note can probably combine this into best after testing
      * @param {array} 3x3 board 
      */
-    preventableLossCheck(board) {
-        for (let i = 0; i < 3; i++) {
-            for (let j = 0; j < 3; j++) {
-                if (board[i][j] == this.blank) {
-                    board[i][j] = this.piece;
-                    if (this.evaluate(board) == 10) {
-                        board[i][j] = this.blank;
-                        return {
-                            boolean: false,
-                            move: new Array(-1, -1)
-                        };
-                    }
-                    board[i][j] = this.enemyPiece;
-                    if (this.evaluate(board) == -10) {
-                        board[i][j] = this.blank;
-                        return {
-                            boolean: true,
-                            move: new Array(i, j)
-                        };
-                    }
-                    board[i][j] = this.blank;
+    isEnemyWinAt(board) {
+        for (let i = 0; i < board.length; i++) {
+            for (let j = 0; j < board[i].length; j++) {
+                let temp = board;
+                temp[i][j] = this.enemyPiece;
+                if(this.isWinningBoard(board) == -10) {
+                    return {isEnemyWinSpace: true, coordinates: [i, j]};
                 }
-            }
+            } 
         }
-        return {
-            boolean: false,
-            move: new Array(0, 0)
-        };
+        return {isEnemyWinSpace: false, coordinates: [-1,-1]}
     }
 
     /**
@@ -58,7 +45,7 @@ class AI_Player extends Player {
     getBestMove(board) {
         var bestVal = -1000;
         var bestMove = [-1, -1];
-        var preventable = this.preventableLossCheck(board)
+        var preventable = this.isEnemyWinAt(board)
 
         if (preventable.boolean) {
             bestMove = preventable.move;
@@ -92,7 +79,7 @@ class AI_Player extends Player {
      * @param {array} board 
      * @returns {int} board score based on who, if anyone, won the game
      */
-    evaluate(board) {
+    isWinningBoard(board) {
         //Check Rows
         for (var i = 0; i < 3; i++) {
             if (board[i][0] == board[i][1] && board[i][0] == board[i][2]) {
@@ -137,7 +124,7 @@ class AI_Player extends Player {
     }
 
     /**
-     * @desc Return a score based on a provided board. (Evaluate the last move made)
+     * @desc Return a score based on a provided board. (isWinningBoard the last move made)
      * @param {array} board 
      * @param {int} depth 
      * @param {int} max 
@@ -145,7 +132,7 @@ class AI_Player extends Player {
      */
     minimax(board, depth, max) {
         //Current state of the board
-        var score = this.evaluate(board);
+        var score = this.isWinningBoard(board);
 
         //If the game state is a win for the AI...
         // -> return the value of that move with depth (TT win state) taken into account
@@ -207,3 +194,5 @@ class AI_Player extends Player {
         return false;
     }
 }
+
+module.exports = AI_Player;
