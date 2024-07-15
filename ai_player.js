@@ -1,6 +1,5 @@
 const Player = require('./player');
 
-
 /**
  * @class AI Player
  */
@@ -144,9 +143,13 @@ class AI_Player extends Player {
             return score + depth;
         }
 
-        //If the board is full -> exit 
-        if (!this.isMovesLeft(board)) {
-            return 0;
+        //Check to make sure there are moves remaining on the board
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 3; j++) {
+                if(board[i][j] == ai.blank) {
+                    return 0;
+                }
+            }
         }
 
         //Pick the best moves
@@ -176,22 +179,6 @@ class AI_Player extends Player {
             }
             return best;
         }
-    }
-
-    /**
-     * @desc Check for empty squares on the board
-     * @param {array} board 
-     * @returns {boolean} Empty cell exists
-     */
-    isMovesLeft(board) {
-        for (let i = 0; i < 3; i++) {
-            for (let j = 0; j < 3; j++) {
-                if (board[i][j] == this.blank) {
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 }
 
