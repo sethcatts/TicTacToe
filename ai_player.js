@@ -1,8 +1,3 @@
-const Player = require('./player');
-
-/**
- * @class AI Player
- */
 class AI_Player extends Player {
     /**
      * @constructor AI Player
@@ -11,80 +6,72 @@ class AI_Player extends Player {
      * @param {*} color 
      * @param {*} difficulty 
      */
-    constructor(name, piece, color, difficulty, blank) {
+    constructor(name, piece, enemyPiece, color, difficulty, blank) {
         super(name, piece, color);
         this.blank = blank;
-        this.enemyPiece = "o";
+        this.enemyPiece = enemyPiece;
         this.difficulty = difficulty;
-        this.moveCounter = 0;
     }
 
-    /**
-     * @description Return on object specifying the preventable loss state of the board
-     * @note can probably combine this into best after testing
-     * @param {array} 3x3 board 
-     */
-    isEnemyWinAt(board) {
+    getBestMove(board) {
+        let bestMove = { rating: -10, coords: [-1, -1] };
+        let depth = 0;
         for (let i = 0; i < board.length; i++) {
             for (let j = 0; j < board[i].length; j++) {
-                let temp = board;
-                temp[i][j] = this.enemyPiece;
-                if(this.isWinningBoard(board) == -10) {
-                    return {isEnemyWinSpace: true, coordinates: [i, j]};
-                }
-            } 
-        }
-        return {isEnemyWinSpace: false, coordinates: [-1,-1]}
-    }
-
-    /**
-     * @desc Get best single move
-     * @param {array} board 
-     */
-    getBestMove(board) {
-        var bestVal = -1000;
-        var bestMove = [-1, -1];
-        var preventable = this.isEnemyWinAt(board)
-
-        if (preventable.boolean) {
-            bestMove = preventable.move;
-            bestVal = 1000;
-        } else if(this.moveCounter == 0 && board[1][1] == this.blank) {
-            bestMove = [1,1];
-            bestVal = 10000;
-        }
-
-        if (!preventable.boolean) {
-            for (let i = 0; i < 3; i++) {
-                for (let j = 0; j < 3; j++) {
-                    if (board[i][j] == this.blank) {
-                        board[i][j] = this.piece;
-                        var moveVal = this.minimax(board, 0, false);
-                        board[i][j] = this.blank;
-                        if (moveVal > bestVal) {
-                            bestVal = moveVal;
-                            bestMove = new Array(i, j);
-                        }
+                if (board[i][j] == this.blank) {
+                    board[i][j] = this.piece;
+                    let moveRating = this.minimax(board, depth, false, this.piece, this.enemyPiece, this.blank);
+                    if (moveRating > bestMove.rating) {
+                        bestMove.rating = moveRating;
+                        bestMove.coords = [i, j];
                     }
+                    board[i][j] = this.blank;
                 }
             }
         }
-        this.moveCounter++;
         return bestMove;
     }
 
-    /**
-     * @desc check for a win
-     * @param {array} board 
-     * @returns {int} board score based on who, if anyone, won the game
-     */
-    isWinningBoard(board) {
+    minimax(board, depth, isPlayerPiece, playerPiece, enemyPiece, blank) {
+        let rating = this.evaluate(board, playerPiece, enemyPiece);
+        if (rating == 10) { return 10; }
+        if (rating == -10) { return -10; }
+        if (this.boardFull(board, blank)) { return 0; }
+
+        if (isPlayerPiece) {
+            let bestRating = -10;
+            for (let i = 0; i < board.length; i++) {
+                for (let j = 0; j < board[i].length; j++) {
+                    if (board[i][j] == blank) {
+                        board[i][j] = playerPiece;
+                        bestRating = Math.max(bestRating, this.minimax(board, depth + 1, !isPlayerPiece, playerPiece, enemyPiece, blank));
+                        board[i][j] = blank;
+                    }
+                }
+            }
+            return bestRating;
+        } else {
+            let bestRating = 10;
+            for (let i = 0; i < board.length; i++) {
+                for (let j = 0; j < board[i].length; j++) {
+                    if (board[i][j] == blank) {
+                        board[i][j] = enemyPiece;
+                        bestRating = Math.min(bestRating, this.minimax(board, depth + 1, !isPlayerPiece, playerPiece, enemyPiece, blank));
+                        board[i][j] = blank;
+                    }
+                }
+            }
+            return bestRating;
+        }
+    }
+
+    evaluate(board, playerPiece, enemyPiece) {
         //Check Rows
         for (var i = 0; i < 3; i++) {
             if (board[i][0] == board[i][1] && board[i][0] == board[i][2]) {
-                if (board[i][0] == this.piece) {
+                if (board[i][0] == playerPiece) {
                     return 10;
-                } else if (board[i][0] == this.enemyPiece) {
+                } else if (board[i][0] == enemyPiece) {
                     return -10;
                 }
             }
@@ -93,9 +80,9 @@ class AI_Player extends Player {
         //Check columns
         for (var i = 0; i < 3; i++) {
             if (board[0][i] == board[1][i] && board[0][i] == board[2][i]) {
-                if (board[0][i] == this.piece) {
+                if (board[0][i] == playerPiece) {
                     return 10;
-                } else if (board[0][i] == this.enemyPiece) {
+                } else if (board[0][i] == enemyPiece) {
                     return -10;
                 }
             }
@@ -103,83 +90,31 @@ class AI_Player extends Player {
 
         //Check diagonals
         if (board[0][0] == board[1][1] && board[0][0] == board[2][2]) {
-            if (board[0][0] == this.piece) {
+            if (board[0][0] == playerPiece) {
                 return 10;
-            } else if (board[0][0] == this.enemyPiece) {
+            } else if (board[0][0] == enemyPiece) {
                 return -10;
             }
         }
 
         if (board[0][2] == board[1][1] && board[0][2] == board[2][0]) {
-            if (board[0][2] == this.piece) {
+            if (board[0][2] == playerPiece) {
                 return 10;
-            } else if (board[0][2] == this.enemyPiece) {
+            } else if (board[0][2] == enemyPiece) {
                 return -10;
             }
         }
 
-        //Not a winning board
         return 0;
     }
 
-    /**
-     * @desc Return a score based on a provided board. (isWinningBoard the last move made)
-     * @param {array} board 
-     * @param {int} depth 
-     * @param {int} max 
-     * @returns {int} Score of the provided board
-     */
-    minimax(board, depth, max) {
-        //Current state of the board
-        var score = this.isWinningBoard(board);
-
-        //If the game state is a win for the AI...
-        // -> return the value of that move with depth (TT win state) taken into account
-        if (score == 10) {
-            return score - depth;
-        //If the game state is a loss for the AI...
-        // -> return the value of that move with depth (TT loss state) taken into account    
-        } else if (score == -10) {
-            return score + depth;
-        }
-
-        //Check to make sure there are moves remaining on the board
-        for (let i = 0; i < 3; i++) {
-            for (let j = 0; j < 3; j++) {
-                if(board[i][j] == ai.blank) {
-                    return 0;
-                }
+    boardFull(board, blank) {
+        for (let i = 0; i < board.length; i++) {
+            for (let j = 0; j < board[i].length; j++) {
+                if (board[i][j] == blank) { return false; }
             }
         }
-
-        //Pick the best moves
-        if (max) {
-            var best = -1000;
-            for (var i = 0; i < 3; i++) {
-                for (var j = 0; j < 3; j++) {
-                    if (board[i][j] == this.blank) {
-                        board[i][j] = this.piece;
-                        best = Math.max(best, this.minimax(board, depth + 1, !max));
-                        board[i][j] = this.blank;
-                    }
-                }
-            }
-            return best;
-        //Pick the worst moves
-        } else {
-            var best = 1000;
-            for (var i = 0; i < 3; i++) {
-                for (var j = 0; j < 3; j++) {
-                    if (board[i][j] == this.blank) {
-                        board[i][j] = this.piece;
-                        best = Math.min(best, this.minimax(board, depth + 1, !max));
-                        board[i][j] = this.blank;
-                    }
-                }
-            }
-            return best;
-        }
+        return true;
     }
 }
 
-module.exports = AI_Player;

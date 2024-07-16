@@ -8,6 +8,7 @@ let themes = {
 }
 let theme = themes.light;
 
+
 function placePiece(coordinates) {
     //Update game state
     game.placePiece(coordinates[0], coordinates[1]);
@@ -34,6 +35,12 @@ function placePiece(coordinates) {
                 popup_gameover.style.display = "none";
             }
         }
+    }
+
+    //AI code
+    if(game.currentPlayer instanceof AI_Player && !game.checkForWin() && !game.checkForTie()) {
+        let move = game.player_2.getBestMove(game.board);
+        placePiece(move.coords);
     }
 }
 
@@ -63,6 +70,7 @@ function drawFrame() {
             }
         }
     }
+
 }
 
 /**

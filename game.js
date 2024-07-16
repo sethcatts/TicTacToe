@@ -1,4 +1,3 @@
-//const Player = require("./player.js");
 
 /**
  * @class Game
@@ -15,7 +14,7 @@ class Game {
     this.gameOver       = false;
     this.tie            = false;
     this.player_1       = new Player("Player One (O)", "o");
-    this.player_2       = new Player("Player Two (X)", "x");
+    this.player_2       = new AI_Player("Player Two (X)", "x", "o", "red", 1, "-");
     this.currentPlayer  = this.player_1;
     this.waitingPlayer  = this.player_2;
   }
@@ -82,10 +81,6 @@ class Game {
    * @param {int} num Player object to replace with the new player
    */
   setPlayer(player, num) {
-    //if player piece does not match...
-    //We probably wanna always replace the second moving player to keep things simple
-    //Or maybe switch to the human player after this 'activation' of the AI?
-    //CURRENTLY -> First mover is 'o', A.I. should always be assigned 'x'
     this.player_2 = player;
     this.waitingPlayer = this.player_2;
   }
