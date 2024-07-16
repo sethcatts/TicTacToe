@@ -8,13 +8,12 @@
     <script src="player.js"></script>
     <script src="ai_player.js"></script>
     <script src="interface.js"></script>
-
   </head>
   <body>
     <h1 id='head_title'>Tic Tac Toe</h1>
     <div id="menu_buttons">
-      <button class="menu_button" onclick="playAgain()">NEW GAME</button>
-      <button class="menu_button" onclick="toggleSettings()">SETTINGS</button>
+      <button class="menu_button" onclick="playAgain()">New game</button>
+      <button class="menu_button" onclick="toggleSettings()">Settings</button>
     </div>
     <div id='game'>
       <div class="game_board">
@@ -48,10 +47,10 @@
   <div id="popup_bg" style="display: none">
       <div id="popup_menu">
         <div id="close_popup_div" title="Close Menu" onclick="toggleSettings()">
-          <p>X</p>
+          <span>X</span>
         </div>
         <div id="save-button-div" title="Save and Close" onclick="saveSettings()">
-          <p>Accept</p>
+          <p>Save</p>
         </div>
         <div id="popup-settings-area">
           <h1 class="settings-header">THEME</h1>

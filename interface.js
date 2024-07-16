@@ -37,7 +37,7 @@ function placePiece(coordinates) {
         }
     }
 
-    //AI code
+    //Place additional piece if current player is an AI class instance and the game is not over
     if(game.currentPlayer instanceof AI_Player && !game.checkForWin() && !game.checkForTie()) {
         let move = game.player_2.getBestMove(game.board);
         placePiece(move.coords);
