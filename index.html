@@ -6,10 +6,11 @@
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
   </head>
   <body>
+    <img src="images/solar/stinger.png" alt="" id="stinger-image">
     <h1 id='head_title'>Tic Tac Toe</h1>
     <div id="menu_buttons">
-      <button class="menu_button" onclick="playAgain()">New game</button>
-      <button class="menu_button" onclick="toggleSettings()">Settings</button>
+      <button class="menu_button" onclick="playAgain()">&#x271A; New Game</button>
+      <button class="menu_button" onclick="toggleSettings()">&#9881; Settings</button>
     </div>
     <div id='gameboard'>
       <div class="game_board">
@@ -52,11 +53,9 @@
           <h1 class="settings-header">THEME</h1>
           <label for="diffculty-list">Select Theme</label>
           <select name="themes-list" id="themes-dropdown">
-            <option value="dark">Dark</option>
-            <option value="light">Light</option>
-            <option value="blue_red">Blue & Red</option>
-            <option value="green_orange">Green & Orange</option>
-            <option value="yellow_purple">Yellow & Purple</option>
+            <option value="solar">Solar</option>
+            <option value="coffee">Coffee</option>
+            <option value="garden">Garden</option>
           </select>
           <br>
           <h1 class="settings-header">A.I.</h1>

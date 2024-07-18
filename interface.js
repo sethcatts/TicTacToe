@@ -1,14 +1,63 @@
 let game = new Game();
 let themes = {
-    dark: { x: "./images/theme-dark/x_1.png", o: "./images/theme-dark/o_1.png" },
-    light: { x: "/images/theme-light/x_1.png", o: "/images/theme-light/o_1.png" },
-    blue_red: { x: "images/theme_blue-red/x_1.png", o: "images/theme_blue-red/o_1.png" },
-    green_orange: { x: "images/theme_green-orange/x_1.png", o: "images/theme_green-orange/o_1.png" },
-    yellow_purple: { x: "images/theme_yellow-purple/x_1.png", o: "images/theme_yellow-purple/o_1.png" }
-}
-let theme = themes.light;
+    solar: {
+        x: './images/solar/sun.png',
+        o: './images/solar/moon.png',
+        backgroundColor: 'black',
+        backgroundImage: 'url("images/solar/background.png")',
+        fontColor: "white",
+        fontFamily: '"Share Tech Mono", monospace;',
+        cellBackgroundColor: "rgba(0, 0, 0, 0.5)",
+        cellHighlightColor: "rgba(78, 78, 78, .5)",
+        boardBorderColor: "rgba(255, 255, 255, 0)",
+        boardBackgroundColor: "rgba(255, 255, 255, 0)"
+    },
 
+    coffee: {
+        x: "./images/coffee/stain_1.png",
+        o: "./images/coffee/stain_2.png",
+        backgroundColor: 'brown',
+        backgroundImage: 'url("images/coffee/woodtexture.jpg")',
+        fontColor: "white",
+        fontFamily: '"Share Tech Mono", monospace;',
+        cellBackgroundColor: "rgba(0, 0, 0, 0.5)",
+        cellHighlightColor: "rgba(78, 78, 78, .5)",
+        boardBorderColor: "rgba(255, 255, 255, 0)",
+        boardBackgroundColor: "rgba(255, 255, 255, 0)"
+    },
+
+    garden: {
+        x: "./images/garden/flower_1.png",
+        o: "./images/garden/flower_2.png",
+        backgroundColor: 'brown',
+        backgroundImage: 'url("images/garden/backgroundtemp.png")',
+        fontColor: "white",
+        fontFamily: '"Share Tech Mono", monospace;',
+        cellBackgroundColor: "rgba(0, 0, 0, 0.5)",
+        cellHighlightColor: "rgba(78, 78, 78, .5)",
+        boardBorderColor: "rgba(255, 255, 255, 0)",
+        boardBackgroundColor: "rgba(255, 255, 255, 0)"
+    },
+}
+
+pieceTheme = themes.solar;
+
+setTheme("solar");
 playAgain();
+
+function setTheme(theme) {
+    pieceTheme = themes[theme];
+    theme = themes[theme];
+    let rt = document.querySelector(":root");
+    rt.style.setProperty("--background-color", theme.backgroundColor);
+    rt.style.setProperty("--background-image", theme.backgroundImage);
+    rt.style.setProperty("--font-color", theme.fontColor);
+    rt.style.setProperty("--font-family", theme.fontFamily);
+    rt.style.setProperty("--cell-background-color", theme.cellBackgroundColor);
+    rt.style.setProperty("--cell-highlight-color", theme.cellHighlightColor);
+    rt.style.setProperty("--board-border-color", theme.boardBorderColor);
+    rt.style.setProperty("--board-background-color", theme.boardBackgroundColor);
+}
 
 function placePiece(coordinates) {
     console.log(coordinates);
@@ -55,13 +104,13 @@ function drawFrame() {
                 document.getElementById(i + "" + j).innerHTML = "";
                 let elem = document.createElement('img');
                 elem.classList.add("placedPiece");
-                elem.src = theme.x;
+                elem.src = pieceTheme.x;
                 document.getElementById(i + "" + j).appendChild(elem);
             } else if (frame.board[i][j] == "o") {
                 document.getElementById(i + "" + j).innerHTML = "";
                 let elem = document.createElement('img');
                 elem.classList.add("placedPiece");
-                elem.src = theme.o;
+                elem.src = pieceTheme.o;
                 document.getElementById(i + "" + j).appendChild(elem);
             } else {
                 document.getElementById(i + "" + j).innerHTML = "";
@@ -75,7 +124,7 @@ function drawFrame() {
  * Create a new game instance, clear/draw the new board
  */
 function playAgain() {
-    if(document.getElementById("popup_gameoverbg").style.display != null) {
+    if (document.getElementById("popup_gameoverbg").style.display != null) {
         document.getElementById("popup_gameoverbg").style.display = "none";
     }
     game = new Game();
@@ -110,7 +159,7 @@ function toggleSettings() {
  */
 function saveSettings() {
     document.getElementById("popup_bg").style.display = "none";
-    theme = themes[document.getElementById("themes-dropdown").value];
+    setTheme(document.getElementById("themes-dropdown").value);
     checkForAIToggle();
     playAgain();
     clearBoard();
@@ -119,10 +168,10 @@ function saveSettings() {
 
 
 function checkForAIToggle() {
-    if(document.getElementById("ai_toggle").checked) {
+    if (document.getElementById("ai_toggle").checked) {
         game.player_2 = new AI_Player("Player Two (X)", "x", "o", "red", 1, "-");
         //Silly!
-        if(game.currentPlayer != game.player_1) { 
+        if (game.currentPlayer != game.player_1) {
             game.currentPlayer = game.player_2;
         }
     } else {
@@ -132,23 +181,23 @@ function checkForAIToggle() {
 
 //Place piece if current player is an AI class instance and the game is not over
 function AIAction() {
-    if(game.currentPlayer instanceof AI_Player && !game.checkForWin() && !game.checkForTie()) {
+    if (game.currentPlayer instanceof AI_Player && !game.checkForWin() && !game.checkForTie()) {
         let move = game.player_2.getBestMove(game.board);
         placePiece(move.coords);
     }
 }
 
 function drawPieceShadow(coordinates) {
-    if(game.legalMove(coordinates[0], coordinates[1])){ 
+    if (game.legalMove(coordinates[0], coordinates[1])) {
         let elem = document.createElement('img');
-        elem.src = theme[game.currentPlayer.piece];
+        elem.src = pieceTheme[game.currentPlayer.piece];
         elem.classList.add("pieceHover");
         document.getElementById(coordinates[0] + "" + coordinates[1]).appendChild(elem);
     }
 }
 
 function erasePieceShadow(coordinates) {
-    if(game.legalMove(coordinates[0], coordinates[1])) {
+    if (game.legalMove(coordinates[0], coordinates[1])) {
         document.getElementById(coordinates[0] + "" + coordinates[1]).innerHTML = "";
     }
 }
