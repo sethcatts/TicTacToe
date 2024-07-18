@@ -4,10 +4,6 @@
     <title>Tic Tac Toe</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
-    <script src="game.js"></script>
-    <script src="player.js"></script>
-    <script src="ai_player.js"></script>
-    <script src="interface.js"></script>
   </head>
   <body>
     <h1 id='head_title'>Tic Tac Toe</h1>
@@ -15,7 +11,7 @@
       <button class="menu_button" onclick="playAgain()">New game</button>
       <button class="menu_button" onclick="toggleSettings()">Settings</button>
     </div>
-    <div id='game'>
+    <div id='gameboard'>
       <div class="game_board">
         <div class="cell" onclick="placePiece([0,0])" id='00' onmouseenter="drawPieceShadow([0,0])"
           onmouseleave="erasePieceShadow([0,0])"></div>
@@ -64,29 +60,27 @@
           </select>
           <br>
           <h1 class="settings-header">A.I.</h1>
-          <input type="radio" id="ai_radio" name="ai-option" value="disabled" checked>
-          <label for="disabled">Disabled</label>
-          <input type="radio" id="ai_radio" name="ai-option" value="enabled">
-          <label for="enabled">Enabled</label>
+          <label class="switch">
+            <input type="checkbox" id="ai_toggle">
+            <span class="slider"></span>
+          </label>
           <br>
-          <label for="difficulty-list">Select Difficulty </label>
-          <select name="difficulty-list" id="difficulty-dropdown">
-            <option value="ai-easy">Easy</option>
-            <option value="ai-medium">Medium</option>
-            <option value="ai-hard">Hard</option>
-          </select>
         </div>
       </div>
     </div>
     <div id="popup_gameoverbg">
       <div id="popup_gameover">
-        <div id="save-button-div" title="Save and Close" onclick="playAgain()">
+        <div id="re_game_button" title="Save and Close" onclick="playAgain()">
           <p>New Game</p>
         </div>
         <h1 id="gameover">Game Over!</h1>
         <h2 id="gameoverstate"></h2>
       </div>
     </div>
+    <script src="game.js"></script>
+    <script src="player.js"></script>
+    <script src="ai_player.js"></script>
+    <script src="interface.js"></script>
 </main>
 
 </html>

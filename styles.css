@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Playwrite+HR:wght@100..400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Playwrite+HR:wght@100..400&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 
 /* Variables */
@@ -10,67 +9,31 @@
   --cell-highlight-color: rgba(78, 78, 78, .5);
   --board-border-color: white;
   --board-background-color: black;
-  /* --font-family: "Playwrite HR", cursive; */
   --font-family: "Rubik", sans-serif;
 }
 /*************/
 
 
+
+/* Page styles */
 body {
   background: var(--gradient);
   background-color: var(--background-color);
   color: var(--font-color);
 }
-
-img {
-  position: absolute;
-  width: 200px;
-  height: 200px;
-}
-
-.game_board {
-  padding: 0px;
-  margin: 0px;
-}
-
-.cell {
-  margin: 5px;
-  padding: 0px;
-  width: 200px;
-  height: 200px;
-  background-color: var(--cell-background-color);
-  display: inline-block;
-  cursor: pointer;
-  background-size: cover;
-}
-
-.cell:hover {
-  box-shadow: inset 0px 0px 0px 5px var(--cell-highlight-color);
-}
-
 #head_title {
   padding-top: 20px;
   text-align: center;
   font-family: var(--font-family);
 }
 
-#game {
-  padding: 0px;
-  width: 640;
-  height: 640;
-  border: 5px var(--board-border-color) solid;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: var(--board-background-color);
-}
-
+/* Menu styles */
 #menu_buttons {
   display: flex;
   justify-content: center;
   align-items: center;
   padding-bottom: 20px;
 }
-
 .menu_button {
 	box-shadow:inset 0px 1px 0px 0px #ffffff;
 	background:linear-gradient(to bottom, #f9f9f9 5%, #e9e9e9 100%);
@@ -88,18 +51,11 @@ img {
   margin-left: 10px;
   margin-right: 10px;
 }
-
 .menu_botton:hover {
 	background:linear-gradient(to bottom, #e9e9e9 5%, #f9f9f9 100%);
 	background-color:#e9e9e9;
 }
-
-.menu_botton:active {
-	position:relative;
-	top:1px;
-}
-
-#popup_bg, #popup_gameoverbg {
+#popup_bg {
   position: fixed;
   top: 0;
   left: 0;
@@ -109,23 +65,19 @@ img {
   display: none;
   text-align: center;
 }
-
-#popup_menu, #popup_gameover {
+#popup_menu {
   position: fixed;
   width: 800px;
   height: 500px;
-  /* border: 5px solid black; */
   background-color: rgba(0, 0, 0, 0.5);
   left: 50%;
   margin-left: -400px;
   top: 50%;
   margin-top: -250px;
-  /*This will need to match styles?*/
   color: rgb(255, 255, 255);
   font-size: 2em;
   font-family: var(--font-family);
 }
-
 #close_popup_div {
   font-family: var(--font-family);
   background-color: rgb(172, 86, 86);
@@ -140,18 +92,9 @@ img {
   top: 5px;
   cursor: pointer;
 }
-
 #close_popup_div:hover {
   background-color: rgb(255, 75, 51);
 }
-
-#close_popup_div p {
-  color: black;
-  margin-top: 4px;
-  font-family: sans-serif;
-  font-weight: bold;
-}
-
 #save-button-div {
   background-color: lightgray;
   position: absolute;
@@ -160,7 +103,6 @@ img {
   bottom: 5px;
   cursor: pointer;
 }
-
 #save-button-div p {
   color: black;
   font-family: var(--font-family);
@@ -169,21 +111,147 @@ img {
   margin-bottom: 2px;
   cursor: pointer;
 }
-
 #save-button-div:hover {
   background-color: lightblue;
 }
+ /* The switch - the box around the slider */
+ .switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
 
-#popup-settings-area {
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+} 
+/* Game over */
+#popup_gameoverbg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  width: 100%;
+  height: 100%;
+  display: none;
+  text-align: center;
+}
+#popup_gameover {
+  position: fixed;
+  width: 800px;
+  height: 500px;
+  background-color: rgba(0, 0, 0, 0.5);
+  left: 50%;
+  margin-left: -400px;
+  top: 50%;
+  margin-top: -250px;
+  color: rgb(255, 255, 255);
+  font-size: 2em;
   font-family: var(--font-family);
-  padding-left: 30px;
-  font-size: 1.1em;
+}
+#re_game_button {
+  background-color: lightgray;
+  position: absolute;
+  border: 2px solid black;
+  right: 5px;
+  bottom: 5px;
+  cursor: pointer;
+}
+#re_game_button p {
+  color: black;
+  font-family: var(--font-family);
+  padding: 0px 10px 0px 10px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  cursor: pointer;
+}
+#re_game_button:hover {
+  background-color: lightblue;
 }
 
-.settings-header {
-  margin-bottom: 0px;
+/* Board styles */
+#gameboard {
+  padding: 0px;
+  width: 640;
+  height: 640;
+  border: 5px var(--board-border-color) solid;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: var(--board-background-color);
 }
-
+.game_board img {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+}
+.game_board {
+  padding: 0px;
+  margin: 0px;
+}
+.cell {
+  margin: 5px;
+  padding: 0px;
+  width: 200px;
+  height: 200px;
+  background-color: var(--cell-background-color);
+  display: inline-block;
+  cursor: pointer;
+  background-size: cover;
+}
+.cell:hover {
+  box-shadow: inset 0px 0px 0px 5px var(--cell-highlight-color);
+}
 .pieceHover {
   opacity: 0.7;
   filter: drop-shadow(5px 5px 5px black);
@@ -191,7 +259,6 @@ img {
 	animation: hover 10s ease-in-out infinite;
 	img { width: 100%; height: auto; }
 }
-
 @keyframes hover {
   0% {
     transform: translate(4px, 4px);
@@ -214,4 +281,12 @@ img {
     transform: rotate(0deg);
 	}
 }
+
+
+
+
+
+
+
+
 

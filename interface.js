@@ -8,8 +8,11 @@ let themes = {
 }
 let theme = themes.light;
 
+playAgain();
 
 function placePiece(coordinates) {
+    console.log(coordinates);
+
     //Update game state
     game.placePiece(coordinates[0], coordinates[1]);
 
@@ -37,13 +40,8 @@ function placePiece(coordinates) {
         }
     }
 
-    //Place additional piece if current player is an AI class instance and the game is not over
-    if(game.currentPlayer instanceof AI_Player && !game.checkForWin() && !game.checkForTie()) {
-        let move = game.player_2.getBestMove(game.board);
-        placePiece(move.coords);
-    }
+    AIAction();
 }
-
 
 /**
  * Redraws the board based on the board supplied by the instance of Game
@@ -77,8 +75,11 @@ function drawFrame() {
  * Create a new game instance, clear/draw the new board
  */
 function playAgain() {
-    document.getElementById("popup_gameoverbg").style.display = "none";
+    if(document.getElementById("popup_gameoverbg").style.display != null) {
+        document.getElementById("popup_gameoverbg").style.display = "none";
+    }
     game = new Game();
+    checkForAIToggle();
     clearBoard();
     drawFrame();
 }
@@ -110,8 +111,31 @@ function toggleSettings() {
 function saveSettings() {
     document.getElementById("popup_bg").style.display = "none";
     theme = themes[document.getElementById("themes-dropdown").value];
+    checkForAIToggle();
+    playAgain();
     clearBoard();
     drawFrame();
+}
+
+
+function checkForAIToggle() {
+    if(document.getElementById("ai_toggle").checked) {
+        game.player_2 = new AI_Player("Player Two (X)", "x", "o", "red", 1, "-");
+        //Silly!
+        if(game.currentPlayer != game.player_1) { 
+            game.currentPlayer = game.player_2;
+        }
+    } else {
+        game.player_2 = new Player("Player Two (X)", "x");
+    }
+}
+
+//Place piece if current player is an AI class instance and the game is not over
+function AIAction() {
+    if(game.currentPlayer instanceof AI_Player && !game.checkForWin() && !game.checkForTie()) {
+        let move = game.player_2.getBestMove(game.board);
+        placePiece(move.coords);
+    }
 }
 
 function drawPieceShadow(coordinates) {

@@ -14,7 +14,7 @@ class Game {
     this.gameOver       = false;
     this.tie            = false;
     this.player_1       = new Player("Player One (O)", "o");
-    this.player_2       = new AI_Player("Player Two (X)", "x", "o", "red", 1, "-");
+    this.player_2       = new Player("Player Two (X)", "x");
     this.currentPlayer  = this.player_1;
     this.waitingPlayer  = this.player_2;
   }
