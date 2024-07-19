@@ -1,10 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Playwrite+HR:wght@100..400&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Kalam:wght@300;400;700&family=Pacifico&display=swap');
 /* Variables */
 :root {
   --background-color: rgb(255, 0, 0);
   --background-image: url("images/solar/background.png");
+  --stinger-image: url("images/cafe/stinger.png");
   --font-color: rgb(255, 0, 0);
   --cell-background-color: rgba(187, 33, 33, 0.5);
   --cell-highlight-color: rgba(255, 46, 46, 0.5);
@@ -31,19 +32,25 @@ body {
   background-image: var(--background-image);
   background-color: var(--background-color);
   color: var(--font-color);
+  background-size: cover;
 }
 #head_title {
-  padding-top: 20px;
   text-align: center;
   font-family: var(--font-family);
   font-size: 4em;
-  text-shadow: 5px 5px 5px black;
+  text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.7);
+  margin-top: 20px;
+  margin-bottom: 10px;
 }
 #stinger-image {
+  content: var(--stinger-image);
   position: absolute;
+  filter: drop-shadow(10px 10px 4px rgba(0, 0, 0, 0.5));
   z-index: -5;
   bottom: 0px;
   left: 0px;
+  width: 300px;
+  height: auto;
 }
 
 /* Menu styles */
@@ -59,9 +66,10 @@ body {
 	display:inline-block;
 	cursor:pointer;
 	color:#666666;
+  border-radius: 4px;
 	font-family: var(--font-family);
 	font-size:1.5em;
-  width: auto;
+  width:200px;
 	padding:10px 15px;
 	text-decoration:none;
   margin-left: 10px;
@@ -204,7 +212,7 @@ input:checked + .slider:before {
   position: fixed;
   width: 800px;
   height: 500px;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.7);
   left: 50%;
   margin-left: -400px;
   top: 50%;
@@ -214,17 +222,19 @@ input:checked + .slider:before {
   font-family: var(--font-family);
 }
 #re_game_button {
+  border-radius: 4px;
   background-color: lightgray;
   position: absolute;
-  border: 2px solid black;
-  right: 5px;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   bottom: 5px;
   cursor: pointer;
 }
 #re_game_button p {
-  color: black;
+	color:#666666;
   font-family: var(--font-family);
-  padding: 0px 10px 0px 10px;
+  padding: 10px 20px 10px 20px;
   margin-top: 2px;
   margin-bottom: 2px;
   cursor: pointer;

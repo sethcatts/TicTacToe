@@ -5,22 +5,24 @@ let themes = {
         o: './images/solar/moon.png',
         backgroundColor: 'black',
         backgroundImage: 'url("images/solar/background.png")',
+        stingerImage: 'url("images/solar/stinger.png")',
         fontColor: "white",
-        fontFamily: '"Share Tech Mono", monospace;',
+        fontFamily: '"Share Tech Mono", monospace',
         cellBackgroundColor: "rgba(0, 0, 0, 0.5)",
         cellHighlightColor: "rgba(78, 78, 78, .5)",
         boardBorderColor: "rgba(255, 255, 255, 0)",
         boardBackgroundColor: "rgba(255, 255, 255, 0)"
     },
 
-    coffee: {
-        x: "./images/coffee/stain_1.png",
-        o: "./images/coffee/stain_2.png",
+    cafe: {
+        x: "./images/cafe/tea.png",
+        o: "./images/cafe/coffee.png",
         backgroundColor: 'brown',
-        backgroundImage: 'url("images/coffee/woodtexture.jpg")',
+        backgroundImage: 'url("images/cafe/woodtexture.jpg")',
+        stingerImage: 'url("images/cafe/stinger.png")',
         fontColor: "white",
-        fontFamily: '"Share Tech Mono", monospace;',
-        cellBackgroundColor: "rgba(0, 0, 0, 0.5)",
+        fontFamily: '"Pacifico", cursive',
+        cellBackgroundColor: "rgba(77, 60, 48, 0.5)",
         cellHighlightColor: "rgba(78, 78, 78, .5)",
         boardBorderColor: "rgba(255, 255, 255, 0)",
         boardBackgroundColor: "rgba(255, 255, 255, 0)"
@@ -30,19 +32,18 @@ let themes = {
         x: "./images/garden/flower_1.png",
         o: "./images/garden/flower_2.png",
         backgroundColor: 'brown',
-        backgroundImage: 'url("images/garden/backgroundtemp.png")',
-        fontColor: "white",
-        fontFamily: '"Share Tech Mono", monospace;',
-        cellBackgroundColor: "rgba(0, 0, 0, 0.5)",
-        cellHighlightColor: "rgba(78, 78, 78, .5)",
+        backgroundImage: 'url("images/garden/background.jpg")',
+        stingerImage: 'none',
+        fontColor: "rgba(252, 252, 252, 1)",
+        fontFamily: '"Dancing Script", cursive',
+        cellBackgroundColor: "rgba(97, 80, 66, 0.5)",
+        cellHighlightColor: "rgba(166, 139, 201, .5)",
         boardBorderColor: "rgba(255, 255, 255, 0)",
-        boardBackgroundColor: "rgba(255, 255, 255, 0)"
+        boardBackgroundColor: "rgba(255, 255, 255, 0.1)"
     },
 }
 
-pieceTheme = themes.solar;
-
-setTheme("solar");
+setTheme("cafe");
 playAgain();
 
 function setTheme(theme) {
@@ -57,11 +58,10 @@ function setTheme(theme) {
     rt.style.setProperty("--cell-highlight-color", theme.cellHighlightColor);
     rt.style.setProperty("--board-border-color", theme.boardBorderColor);
     rt.style.setProperty("--board-background-color", theme.boardBackgroundColor);
+    rt.style.setProperty("--stinger-image", theme.stingerImage);
 }
 
 function placePiece(coordinates) {
-    console.log(coordinates);
-
     //Update game state
     game.placePiece(coordinates[0], coordinates[1]);
 
