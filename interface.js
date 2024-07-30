@@ -43,7 +43,7 @@ let themes = {
     },
 }
 
-setTheme("cafe");
+setTheme("solar");
 playAgain();
 
 function setTheme(theme) {
