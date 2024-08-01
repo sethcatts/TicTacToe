@@ -1,10 +1,12 @@
 <html>
 <main>
+
   <head>
     <title>Tic Tac Toe</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
   </head>
+
   <body>
     <img alt="" id="stinger-image">
     <h1 id='head_title'>Tic Tac Toe</h1>
@@ -40,8 +42,8 @@
           onmouseleave="erasePieceShadow([2,2])"></div>
       </div>
     </div>
-  
-  <div id="popup_bg" style="display: none">
+
+    <div id="popup_bg" style="display: none">
       <div id="popup_menu">
         <div id="close_popup_div" title="Close Menu" onclick="toggleSettings()">
           <span>X</span>
@@ -58,12 +60,16 @@
             <option value="garden">Garden</option>
           </select>
           <br>
-        <h1 class="settings-header">A.I.</h1>
-        <p id="ai_note">Note: This AI plays perfectly and cannot be beaten.</p>
-        <label class="switch">
-            <input type="checkbox" id="ai_toggle">
-            <span class="slider"></span>
-          </label>
+
+          <div id="ai_text_outer">
+            <h1 class="settings-header ai_toggle">A.I.</h1>
+            <label class="switch ai_toggle">
+              <input type="checkbox" class="ai_toggle">
+              <span class="slider ai_toggle"></span>
+            </label>
+          </div>
+          <p id="ai_note">Note: This AI plays perfectly and cannot be beaten.</p>
+
           <br>
         </div>
       </div>
